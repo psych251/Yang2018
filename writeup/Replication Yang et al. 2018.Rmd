@@ -14,7 +14,42 @@ output:
 
 ##Introduction
 
-[No abstract is needed.]  Each replication project will have a straightforward, no frills report of the study and results.  These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of data collection.  Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.  
+###Justification for choice of experiment:
+The study looks at children's understanding of social norms in cooperation, specifically their evaluation and sanction of free riding phenomenon. The paper is closely related to my research interest in children's social cognitive development. Most of my future work will be around social cognition & child studies, so I would prefer to do a replication on relevant topics.
+
+###Description of Paper:
+Across 6 studies, Yang et al.(2018) found that: children as young as 4 year olds negatively evaluate free riders, taking intention into consideration; children's negative valuations towards free riders are not only determined by group impact caused by free riding or nonconformity to the majority; children treat free riders with punishment, but contributors with reward; the similar patterns continue to exist when switching to a situation in which children play as first-parties.
+
+I aim to replicate study 2 for this paper, where the result suggested that 4 to 5-year-olds negatively evaluate free riders. 
+
+###Stimuli and procedures:
+
+All the stimuli can be found on the OSF: https://osf.io/ke523/
+
+Stimuli are pictures displayed on a laptop screen, along with the experimenter's description of the story context. Participants were presented with two scenarios in which four members worked together in a group to achieve a common goal. If all four members contributed, the group could get a big reward; if only three of them contributed, the reward would only be a small one. The scenarios have two versions: free rider withholding resources vs. free rider withholding effort. In the former version, donating four chocolates to a piggybank won the group a bigger cake and donating plants into a garden produced more tomatoes. In the latter version, donation was replaced by cleaning the dirty piggy bank and growing the tomatoes. Half of the children heared the donation version, and half of them heared the effort version. In terms of intention, each subject heard two scenarios, one involving a free-rider unwilling to contribute (intentional condition), one involving a free-rider willing but unable to contribute (unintentional condition).
+
+The procedures were as below:
+
+-Introduction about the game rules (Memory Check for Children's Understanding of the rules)
+
+-Free riding story - Scenario 1 (Intentional/Unintentional)
+
+-Evaluation/Preference Questions  (Contributor & Free rider)
+
+-Free riding story - Scenario 2 (Unintentional/Intentional)
+
+-Evaluation/Preference Questions  (Contributor & Free rider)
+
+
+###Anticipated Challenges:
+1. Data collection with children will bring me much more work to do than using Amazon Mechanical Turk.
+
+2. Need to connect to Bing Nursery School.
+
+###Links
+Project Repository:  https://github.com/psych251/yang2018
+
+Original Paper:  https://github.com/psych251/yang2018/tree/master/OriginalPaper
 
 
 ##Methods
@@ -34,6 +69,7 @@ All materials - can quote directly from original article - just put the text in 
 ###Procedure	
 
 Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+
 
 ###Analysis Plan
 
