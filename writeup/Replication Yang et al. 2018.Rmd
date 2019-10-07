@@ -24,9 +24,9 @@ I aim to replicate study 2 for this paper, where the result suggested that 4 to 
 
 ###Stimuli and procedures:
 
-All the stimuli can be found on the OSF: https://osf.io/ke523/
+All the stimuli can be found on the OSF: [https://osf.io/ke523/](https://osf.io/ke523/)
 
-Stimuli are pictures displayed on a laptop screen, along with the experimenter's description of the story context. Participants were presented with two scenarios in which four members worked together in a group to achieve a common goal. If all four members contributed, the group could get a big reward; if only three of them contributed, the reward would only be a small one. The scenarios have two versions: free rider withholding resources vs. free rider withholding effort. In the former version, donating four chocolates to a piggybank won the group a bigger cake and donating plants into a garden produced more tomatoes. In the latter version, donation was replaced by cleaning the dirty piggy bank and growing the tomatoes. Half of the children heared the donation version, and half of them heared the effort version. In terms of intention, each subject heard two scenarios, one involving a free-rider unwilling to contribute (intentional condition), one involving a free-rider willing but unable to contribute (unintentional condition).
+Stimuli are pictures displayed on a laptop screen, along with the experimenter's description of the story context. Participants were presented with two scenarios in which four members worked together in a group to achieve a common goal. If all four members contributed, the group could get a big reward; if only three of them contributed, the reward would only be a small one. The scenarios have two versions: free rider withholding resources vs. free rider withholding effort. In the former version, donating four chocolates to a piggybank won the group a bigger cake and donating plants into a garden produced more tomatoes. In the latter version, donation was replaced by cleaning the dirty piggybank and growing the tomatoes. Half of the children heared the donation version, and half of them heared the effort version. In terms of intention, each subject heard two scenarios, one involving a free-rider unwilling to contribute (intentional condition), one involving a free-rider willing but unable to contribute (unintentional condition).
 
 The procedures were as below:
 
@@ -47,9 +47,9 @@ The procedures were as below:
 2. Need to connect to Bing Nursery School.
 
 ###Links
-Project Repository:  https://github.com/psych251/yang2018
+Project Repository:  [https://github.com/psych251/yang2018](https://github.com/psych251/yang2018)
 
-Original Paper:  https://github.com/psych251/yang2018/tree/master/OriginalPaper
+Original Paper:  [https://github.com/psych251/yang2018/tree/master/OriginalPaper](https://github.com/psych251/yang2018/tree/master/OriginalPaper)
 
 
 ##Methods
