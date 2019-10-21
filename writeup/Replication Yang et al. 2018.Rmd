@@ -46,7 +46,7 @@ The procedures were as below:
 
 2. Need to connect to Bing Nursery School.
 
-###Links
+###Links:
 Project Repository:  [https://github.com/psych251/yang2018](https://github.com/psych251/yang2018)
 
 Original Paper:  [https://github.com/psych251/yang2018/tree/master/OriginalPaper](https://github.com/psych251/yang2018/tree/master/OriginalPaper)
@@ -56,30 +56,45 @@ Original Paper:  [https://github.com/psych251/yang2018/tree/master/OriginalPaper
 
 ###Power Analysis
 
-Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.  (to be filled)
 
 ###Planned Sample
 
-Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.
+Based on original paper and suggestions from the original author, the planned sample size will be 32 participants (4 to 5-year-olds) from Stanford Bing Nursery School. 
 
 ###Materials
 
-All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+Materials below are quoted directly from original article:
+
+"We presented each participant with two scenarios in which a four-member group could obtain a large reward if all four members contributed to a collective goal or a smaller reward if only three members contributed. The scenarios were described verbally by the experimenter and depicted through pictures on a laptop display. One scenario involved a magic piggy bank modeled after a public-goods game in which placing chocolates in a piggy bank would lead to the appearance of a cake that was then shared among the group. The other scenario involved a more naturalistic gardening setting in which placing plants in a garden produced tomatoes. Each participant heard both scenarios, one involving an unwilling free rider (intentional-free-riding condition) and one involving a willing but unable free rider (unintentional-free-riding condition). Key conditions and scenes are represented in Figure 1. To establish a modicum of generality, we investigated two types of free riding (withholding of a valuable resource versus withholding of effort). Half of the participants heard a donation version of the story (i.e., donate chocolate to the piggy bank and donate plants to the garden), and the other half of participants heard an effort version (i.e., clean the dirty piggy bank and grow the tomatoes). The type of free riding (withholding of resources versus effort) was thus manipulated between subjects, and across subjects, all pairings among scenario, type of free riding, and intentionality were included."
+
+Note: this will be followed precisely in the replication study.
 
 ###Procedure	
 
-Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+The procedure below is quoted directly from original article:
 
+"During testing, children were first introduced to the groups and told how the piggy bank or garden worked in terms of the rewards (i.e., get a bigger cake or basket of tomatoes with contributions from four members vs. three members). As a memory check, children were asked at the end of this familiarization phase about which reward the group would get if three versus four members contributed and all children answered the questions correctly. After familiarization, in the intentional-free-riding condition (Fig. 1a), children were shown through animations that the free rider kept the resources for themselves or made no actions. In the unintentional-free-riding condition (Fig. 1b), the free riders wanted to donate or make an effort to the group, but their resource was eaten by a pet (donation version) or they could not do the work because of an injury (effort version). In both conditions, the contributors put in the resources or made the actions. Finally, children were shown that the group got the second-best reward, and each child target got a small but equal share of the group reward. Children were asked to rate the free rider and one of the contributors on a 4-point scale indicating (a) how good or bad each character was (judgment question) and (b) how much they liked or disliked each character (preference question). At the end of the session, children were asked two memory questions about (a) whether the group received the bigger or the smaller reward (outcome question) and (b) whether three or four people contributed to the group (action question)."
+
+Note: this will be followed precisely in the replication study.
 
 ###Analysis Plan
 
-Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+The procedure below is quoted directly from original article:
 
-**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+"All children answered the memory questions correctly. Children’s judgment and preference ratings ranged from 1 (most negative) to 4 (most positive). Preliminary results indicated no differences between the two types of scenario (piggy bank vs. gardening), the type of free riding (effort vs. donation), or the type of question (judgment vs. preference), so we collapsed across these factors in primary analyses. We used children’s judgment and preference ratings as indicators for evaluation ratings and analyzed data via mixed linear models predicting children’s ratings as a function of target (dummy coded; free rider vs. contributor), intentionality (dummy coded; whether the scenario involved intentional vs. unintentional free riding), child age, and the interactions among them, with a random intercept for participant. Data and code to replicate all analyses reported in this article are available at [https://osf.io/g8xyt/](https://osf.io/g8xyt/)."
+
+**Clarify key analysis of interest here**  
+
+Using a linear mixed regression model to test whether the identity of the target (free rider vs. contributor), intentionality, and interactions between these two variables predict children's ratings.
 
 ###Differences from Original Study
 
-Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
+1. The origianl study was conducted in a campus lab at Yale, at schools and at a local museum in New Haven, CT. But this study will be conducted at Stanford Nursery School in Palo Alto, CA, specifically in an ad hoc game room. Not sure whether there will be any differences between children from The East and West Coast of the United States in a big scope, but the change of specific rooms should be fine according to the author's notes in the original paper.
+
+2. The majority of children in the original studies were from middle-class families and of European American ethnicity (> 75%). Bing Nursery School, with a mission of providing a laboratory setting for research in developmental psychology, may have more diversified-background children in this aspect. I will check the children's demographic information as I collect data.
+
+3. Another difference is that I will run the experiment myself. The original study seemed to be run by several experimenters or research assistants. I have got the protocol from the original author, but minor differences will still be inevitable. 
 
 ### Methods Addendum (Post Data Collection)
 
