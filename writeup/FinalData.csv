@@ -1,0 +1,18 @@
+SubID,TestDate,Condition,Initial,Class,Age (Months),AgeCentered,Gender,Race,Original_FR_Judgment,Original_Con_Judgment,Original_FR_Preference,Original_Con_Preference,Comparison_FR_Judgment,Comparison_Con_Judgment,Comparison_FR_Preference,Comparison_Con_Preference,Notes
+1,11/12/19,A2,Jack,WestPM,50,-6.823529412,Boy,C,4,4,4,4,4,4,4,4,
+2,11/12/19,B1,Christopher M.,WestPM,60,3.176470588,Boy,Af/SN,1,4,1,4,1,4,1,4,because a puppy came...; becasue he put the chocolate into the piggybank
+3,12/2/19,B2,Elliott,WestAM,56,-0.823529412,Boy,A/C C,1,3,1,4,4,4,3,3,b/c he looks weird; b/c he just looked like the other boy
+4,11/25/19,B2,William T.,WestAM,55,-1.823529412,Boy,C,3,4,3,4,4,3,4,3,don't know; don't know
+5,11/12/19,C2,Denali S.,WestPM,58,1.176470588,Boy,H/C,4,1,4,1,4,1,4,1,because I don't like red; because her hair is like my sisiter's
+6,11/7/19,D1,Kevin Z.,WestPM,58,1.176470588,Boy,A,2,4,2,4,2,4,2,4,becasue he is good
+7,11/25/19,D2,Pieter G.,WestAM,57,0.176470588,Boy,C H,4,1,4,1,1,1,1,1,
+8,11/12/19,A1,Sienna,WestPM,60,3.176470588,Girl,H,1,4,1,4,3,4,3,4,because the puppy ate her chocolate
+9,11/25/19,A2,Zuri,WestAM,59,2.176470588,Girl,Af,1,1,1,1,4,4,4,4,because I like her hair; because she didn't eat it.
+10,11/25/19,B1,Emilia S.,WestAM,58,1.176470588,Girl,A/I,1,4,1,4,1,4,1,4,
+11,11/7/19,B2,Cobie I.,WestPM,53,-3.823529412,Girl,A/V,1,4,1,4,3,3,3,3,becasue the dog ate her chocolate
+12,11/7/19,C1,Mia H.,WestPM,60,3.176470588,Girl,A/C,2,3,2,4,2,4,3,4,Because I like her hair
+13,11/25/19,C1,Calista L.,WestAM,49,-7.823529412,Girl,A,3,4,2,4,4,4,4,4,b/c she looks weird...curly hair; b/c she is beautiful
+14,12/2/19,C2,Clover C.,WestAM,51,-5.823529412,Girl,A,2,4,2,4,2,2,2,2,"b/c putting plants into garden makes vegetables grow and yummy; you can plant at school, but if you want to, you can also plant it at home."
+15,11/25/19,D1,Elena,WestAM,57,0.176470588,Girl,C H,1,4,1,4,4,4,4,4,because she ate the chocolate; but she put the plant into the garden
+16,11/7/19,D2,Louisa R.,WestPM,55,-1.823529412,Girl,C/J,4,4,4,4,4,4,4,4,because I like her smile
+17,11/14/19,C1,Anya,WestPM,70,13.17647059,Girl,ME C,4,4,4,4,4,4,4,4,

@@ -1,5 +1,5 @@
 ---
-title: "Replication of Study 2 by Yang et al. (2018, Psychological Science)"
+title: "Final Report for Replication of Study 2 by Yang et al. (2018, Psychological Science)"
 author: "Yuman Li (yumanl@stanford.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
@@ -51,16 +51,21 @@ Project Repository:  [https://github.com/psych251/yang2018](https://github.com/p
 
 Original Paper:  [https://github.com/psych251/yang2018/tree/master/OriginalPaper](https://github.com/psych251/yang2018/tree/master/OriginalPaper)
 
+OSF Pre-registration: [https://osf.io/3p4vt/](https://osf.io/3p4vt/)
 
 ##Methods
 
 ###Power Analysis
 
-Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.  (to be filled)
+I use the statistical test of "ANCOVA: Fixed effects, main effects and interactions" in G*Power to do power analysis. The original effect size is d = 1.62. To detect the effect size,
+
+to achieve 80% power, N = 22;
+to achieve 90% power, N = 25;
+to achieve 95% power, N = 27.
 
 ###Planned Sample
 
-Based on original paper and suggestions from the original author, the planned sample size will be 32 participants (4 to 5-year-olds) from Stanford Bing Nursery School. 
+Based on the power analysis and suggestions from the original author through email communication, the planned sample size will be 32 participants (4 to 5-year-olds) from Stanford Bing Nursery School. 
 
 ###Materials
 
@@ -98,39 +103,202 @@ Using a linear mixed regression model to test whether the identity of the target
 
 ### Methods Addendum (Post Data Collection)
 
-You can comment this section out prior to final report with data collection.
+Since data collection with children is relatively slower, 17 children have participated in the study by the time of submitting this report. All the children reported here listened to the resource donation version of the story. I would consider keep running kids to reach my planned sample size 32 (maybe the rest of them using effort donation version of the story) after this course.
 
 #### Actual Sample
-  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+My current sample size is 17, including 7 boys and 10 girls. The average age for them is 56.8 months (sample range: 49~70). Most of their racial backgrounds are Asians or Caucasians; 2 of them are African Americans. Subjects are from Stanford Bing Nursery School, mainly from two classes: WestAM and WestPM. I follow the exclusion rule from the original paper, which is excluding the child when he/she fails to correctly answer and does not change the answer for the memory check questions in the introduction phase. But in my study, most of the children answered the question correctly for the first time. For 3 to 4 children who did not get it right at first, they changed their answers after I explained the rule to them one or two more times.
 
 #### Differences from pre-data collection methods plan
-  Any differences from what was described as the original plan, or “none”.
-
+Only resource-donation version of the stories were told to children.
 
 ##Results
-
 
 ### Data preparation
 
 Data preparation following the analysis plan.
 	
-```{r include=F}
+```{r}
 ###Data Preparation
 
+# required packages
+
 ####Load Relevant Libraries and Functions
+library(tidyverse)   # 1.00
+library(lme4)  # lmer / glmer  1.1-16
+library(effsize) # cohens d calculator  0.7.1
+library(optimx) # additional optimizers for glmer  2013.8.7
 
 ####Import data
+repdata <- read.csv('FinalData.csv')
 
 #### Data exclusion / filtering
-
 #### Prepare data for analysis - create columns etc.
+
+# convert to long format
+longrepdata <- repdata %>%
+  dplyr::select(SubID,AgeCentered,'Original_FR_Judgment':'Comparison_Con_Preference') %>% 
+  gather(condition,response,Original_FR_Judgment:Original_Con_Preference, Comparison_FR_Judgment:Comparison_Con_Preference) %>% 
+  mutate(intention=ifelse(substr(condition,1,2)=='Or','unwilling','unable')) %>%
+  mutate (target=ifelse(grepl("FR",condition),"FreeRider","Contributor")) 
+
+# sanity check: check balance
+table(longrepdata$intention,longrepdata$target)
+
+# fit maximal model
+Mmax <- lmer(response ~ target*intention*AgeCentered + (1|SubID),data=longrepdata)
+summary(Mmax)
+drop1(Mmax, test='Chisq')
+# drop 3-way via LRT
+M2way <- lmer(response ~ (target+intention+AgeCentered)^2 + (1|SubID),data=longrepdata)
+summary(M2way)
+drop1(M2way, test='Chisq')
+# drop target:age and intention:age
+M2way2 <- lmer(response ~ target+intention+AgeCentered+target:intention+ (1|SubID),data=longrepdata)
+summary(M2way2)
+drop1(M2way2, test='Chisq')
+
+# use above as final model
+options(contrasts = c("contr.SAS", "contr.SAS'"))  # relevel contrasts to unintentional and contributor, respectively
+repdatafinal<-lmer(response ~ target+intention+AgeCentered+target:intention+target:AgeCentered +(1|SubID),data=longrepdata)
+summary(repdatafinal) 
+confint(repdatafinal) # output confidence intervals
+
+## Compute effect sizes: d for various simple contrasts
+# output means of free riders vs contributors
+longrepdata %>%
+  group_by(target) %>%
+  summarise(avg = mean(response))
+# compute d
+cohen.d(response ~ target, data=longrepdata) 
+
+# intentional vs unintentional free riders
+longrepdata %>%
+  filter(target=='FreeRider') %>%
+  group_by(intention) %>%
+  summarise(avg = mean(response))
+# compute d
+cohen.d(response ~ intention, data=filter(longrepdata,target=='FreeRider')) 
+
+# untintentional free riders vs contributors
+longrepdata %>%
+  filter(intention=='unable') %>%
+  group_by(target) %>%
+  summarise(avg = mean(response))
+# compute d
+cohen.d(response ~ target, data=filter(longrepdata,intention=='unable')) 
+
+
+# NOTE: This includes a subset of figures only
+library(scales)
+
+# Graph
+substrRight <- function(x, n){substr(x, nchar(x)-n+1, nchar(x))}
+longrepdataGraph <- repdata %>%
+  dplyr::select(SubID,'Original_FR_Judgment':'Comparison_Con_Preference') %>% 
+  gather(condition,response,Original_FR_Judgment:Original_Con_Preference, Comparison_FR_Judgment:Comparison_Con_Preference) %>% 
+  mutate(Ttype=substr(condition,1,2)) %>%
+  mutate (Ctype=ifelse(grepl("FR",condition),"FreeRider","Contributor")) 
+
+longrepdataGraph$Ttype<-factor(longrepdataGraph$Ttype,levels=c("Or","Co"))#Change the order for Ttype
+longrepdataGraph$Ctype<-factor(longrepdataGraph$Ctype,levels=c("FreeRider","Contributor"))#change the order for Ctype
+
+reordergraph <- ggplot(longrepdataGraph,aes(x=Ctype, y = response, width=.65, fill = as.factor(Ttype))) +
+  stat_summary(fun.y=mean, geom="bar", position=position_dodge()) + 
+  stat_summary(fun.data="mean_cl_boot", geom="errorbar",  aes(width=.15), position=position_dodge(.65)) 
+
+graph<-(reordergraph +
+           theme(legend.title=element_blank()) + 
+           scale_x_discrete(breaks=c("Contributor", "FreeRider"),labels=c("Contributor", "Free Rider")) + 
+           scale_y_continuous(limits=c(1,4),oob=squish,expand = c(0,0))+
+           ylab("Rating (1 = most negative, 4 = most positive)") +
+           xlab("Target") +
+           theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+
+           theme(legend.title=element_blank()) +
+           scale_fill_manual(values=c("#99CC99", "#FFCC99"),breaks=c("Co", "Or"),labels=c("Unintentional Free-Riding", "Intentional Free-Riding")) +
+           geom_hline(yintercept = 2.5, linetype=2, color='black')+
+           guides(fill = guide_legend(reverse = TRUE))+ #reverse the legend order
+           ggtitle("Replication: 4 to 5-year-olds") + theme(plot.title=element_text(hjust = "0", face="bold"))+
+           theme(legend.position="top") +
+           theme(legend.direction="horizontal")+
+           theme(plot.title = element_text(size = 12, face = "bold") , legend.text=element_text(size=9))+
+           theme(axis.text=element_text(size=10,face="bold"), axis.title=element_text(size=10,face="bold")))
+
 ```
 
 ### Confirmatory analysis
 
-The analyses as specified in the analysis plan.  
+All the children answered the memory check questions correctly (4 of them were told more than once about the rule). I found the observed effects for target (beta = 1.15, 95% CI = [0.65,1.64]) and intentionality (beta = 0.74, 95% CI = [0.24,1.23]) and an interaction between target and intentionality (beta = -0.76, 95% CI = [-1.47,-0.06]). The effect for interaction between target and age found in the original paper was not found here.
+
+In the replication study, 4 to 5-year-olds rated the contributors (M = 3.4) higher than the free riders (M = 2.63; d = 0.64) and rated unintentional free riders (M = 3) higher than intentional free riders (M = 2.26; d = 0.60). Both of these two are medium effect size.
+
+Therefore, the replication of the main effects is successful.
+
+```{r}
+graph
+```
+
 
 *Side-by-side graph with original graph is ideal here*
+
+```{r echo=FALSE}
+# read data: Studies 1-5
+raw <- read.csv('Studies1-5Data.csv')
+
+# subset to study datasets
+Study1 <- subset(raw,Study==1) 
+Study2 <- subset(raw,Study==2)
+Study3 <- subset(raw,Study==3)
+Study4 <- subset(raw,Study==4)
+Study5 <- subset(raw,Study==5)
+
+Study12 <- subset(raw,Study<3)
+
+#### Study 2 ####
+# convert to long format
+longStudy2 <- Study2 %>%
+  dplyr::select(ID,AgeCentered,10:13,22:25) %>% 
+  gather(condition,response,Original_FR_Judgment:Original_Con_Preference, Comparison_FR_Judgment:Comparison_Con_Preference) %>% 
+  mutate(intention=ifelse(substr(condition,1,2)=='Or','unwilling','unable')) %>%
+  mutate (target=ifelse(grepl("FR",condition),"FreeRider","Contributor")) 
+
+# use above as final model
+options(contrasts = c("contr.SAS", "contr.SAS'"))  # relevel contrasts to unintentional and contributor, respectively
+Study2final<-lmer(response ~ target+intention+AgeCentered+target:intention+target:AgeCentered + (1|ID),data=longStudy2)
+
+# Study2
+substrRight <- function(x, n){substr(x, nchar(x)-n+1, nchar(x))}
+longStudy2Graph <- Study2 %>%
+  dplyr::select(ID,10:13,22:25) %>% 
+  gather(condition,response,Original_FR_Judgment:Original_Con_Preference, Comparison_FR_Judgment:Comparison_Con_Preference) %>% 
+  mutate(Ttype=substr(condition,1,2)) %>%
+  mutate (Ctype=ifelse(grepl("FR",condition),"FreeRider","Contributor")) 
+
+longStudy2Graph$Ttype<-factor(longStudy2Graph$Ttype,levels=c("Or","Co"))#Change the order for Ttype
+longStudy2Graph$Ctype<-factor(longStudy2Graph$Ctype,levels=c("FreeRider","Contributor"))#change the order for Ctype
+
+reordergraph2 <- ggplot(longStudy2Graph,aes(x=Ctype, y = response, width=.65, fill = as.factor(Ttype))) +
+  stat_summary(fun.y=mean, geom="bar", position=position_dodge()) + 
+  stat_summary(fun.data="mean_cl_boot", geom="errorbar",  aes(width=.15), position=position_dodge(.65))
+
+graph2<-(reordergraph2 +
+           theme(legend.title=element_blank()) + 
+           scale_x_discrete(breaks=c("Contributor", "FreeRider"),labels=c("Contributor", "Free Rider")) + 
+           scale_y_continuous(limits=c(1,4),oob=squish,expand = c(0,0))+
+           ylab("Rating (1 = most negative, 4 = most positive)") +
+           xlab("Target") +
+           theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+
+           theme(legend.title=element_blank()) +
+           scale_fill_manual(values=c("#99CC99", "#FFCC99"),breaks=c("Co", "Or"),labels=c("Unintentional Free-Riding", "Intentional Free-Riding")) +
+           geom_hline(yintercept = 2.5, linetype=2, color='black')+
+           guides(fill = guide_legend(reverse = TRUE))+ #reverse the legend order
+           ggtitle("Original Paper:  4 to 5-year-olds") + theme(plot.title=element_text(hjust = "0", face="bold"))+
+           theme(legend.position="top") +
+           theme(legend.direction="horizontal")+
+           theme(plot.title = element_text(size = 12, face = "bold") , legend.text=element_text(size=9))+
+           theme(axis.text=element_text(size=10,face="bold"), axis.title=element_text(size=10,face="bold")))
+graph2
+```
+
 
 ###Exploratory analyses
 
@@ -140,8 +308,12 @@ Any follow-up analyses desired (not required).
 
 ### Summary of Replication Attempt
 
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+Through my replication, I found the similar pattern of rating contributors higher than free riders and rating unintentional free riders higher than intentional free riders as in the original paper. Here are the differences I found: children in my replication study overall rated the contributors (M = 3.4) not as high as children in the original paper did (M = 3.74) and they did not rate the free riders (M = 2.63) as low as children in the original paper did (M = 2.24). That said, children in the replication study seems more generous or open-minded in judging whether the characters in stories are good or bad. This can be additionally supported by another piece of evidence from more ambiguous context that within free riders, for unintentional free riders, children in the original paper rated them more negatively than the neutral level. However, in my replication study, children rated unintentional free riders more positively than the neutral level. 
+
 
 ### Commentary
 
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+1. The overall pattern in the replication study is consistent with that in the original paper.
+2. The potential causes of the differences: 1.1 Current sample size is small (N = 17), so I need data from more subjects to come to a conclusion; 1.2 There are several children that may be the noises of the results. Instead of offering their answers based on the story contexts, 3 out of 17 children always gave the same ratings through out 8 questions, which may cause the ratings to be closer to the neutral level. Some children gave the completely opposite answers, rating free riders very high and rating contributors very low, which may become another cause.
+3. Stimuli: the study uses faces of real children as stimuli. In my replication study, a number of children told me the reason of evaluating a character as "good" was because he/she looked good or like their brother/sister and the reason of evaluating a character as "bad" was because he/she was weird, which means that these children judged the characters based on their physical appearance instead of their behaviors in the story. The original paper did not mention the sources where these face stimili were from. I need to look into it. For future study, the faces might need to be first rated by a group of same-aged children to avoid biases if necessary.
+4. Another interpretation for the differences occurring in the study following my intution is that it mighe be caused by west vs. east coast cultural differences. Maybe because the people that children in California get in touch with have more diversities, so they tend to be less likely to judge others with limited cues in an extreme way (particularly at Bing Nursery School where diversity is emphasized a lot). However, children from east coast may be more conventional.This could possibly become an interesting direction for future studies.
